@@ -77,6 +77,7 @@ bool do_exec(int count, ...)
     return status == 0 ? true : false;
 }
 
+
 /**
 * @param outputfile - The full path to the file to write with command output.
 *   This file will be closed at completion of the function call.
