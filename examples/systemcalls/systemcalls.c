@@ -1,4 +1,7 @@
 #include <fcntl.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
 #include "systemcalls.h"
 
@@ -18,8 +21,8 @@ bool do_system(const char *cmd)
  *   and return a boolean true if the system() call completed with success
  *   or false() if it returned a failure
 */
-
-    return true;
+    int ret = system(cmd);
+    return ret == 0 ? true : false;
 }
 
 /**
@@ -60,14 +63,18 @@ bool do_exec(int count, ...)
  *   as second argument to the execv() command.
  *
 */
-
-    if (!fork()) {
+    fflush(stdout);
+    int child_pid;
+    if (!(child_pid = fork())) {
         execv(command[0], command); perror("execv"); abort();
     }
 
     va_end(args);
 
-    return true;
+    int status;
+
+    waitpid(child_pid, &status, 0);
+    return status == 0 ? true : false;
 }
 
 /**
@@ -99,8 +106,9 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
  *
 */
     int kidpid;
-    int fd = open(outputfile, O_WRONLY|O_TRUNC|O_CREAT, 0644);
+    int fd = open(outputfile, O_RDWR |O_CREAT, 0644);
     if (fd < 0) { perror("open"); abort(); }
+    fflush(stdout);
     switch (kidpid = fork()) {
     case -1: perror("fork"); abort();
     case 0:
@@ -114,5 +122,9 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
 
     va_end(args);
 
-    return true;
+
+    int status;
+
+    waitpid(kidpid, &status, 0);
+    return status == 0 ? true : false;
 }
