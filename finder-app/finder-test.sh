@@ -10,9 +10,9 @@ WRITESTR=AELD_IS_FUN
 WRITEDIR=/tmp/aeld-data
 username=$(cat conf/username.txt)
 
-make clean
-
-make
+# removed for assignment 3 part 1
+# make clean
+# make
 
 if [ $# -lt 3 ]
 then
