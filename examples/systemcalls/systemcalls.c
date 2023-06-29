@@ -123,7 +123,6 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
     va_end(args);
 
     int status;
-
     waitpid(kidpid, &status, 0);
     return status == 0 ? true : false;
 }
