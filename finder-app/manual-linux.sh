@@ -92,8 +92,10 @@ cp ${SYS_ROOT}/lib64/libresolv.so.2 lib64/libresolv.so.2
 cp ${SYS_ROOT}/lib64/libc.so.6 lib64/libc.so.6
 
 # TODO: Make device nodes
-sudo mknod -m 0666 dev/null c 1 3
-sudo mknod -m 0666 dev/console c 5 1
+mknod dev/null c 1 3
+chmod 666 dev/null
+mknod dev/console c 5 1
+chmod 666 dev/console
 
 # TODO: Clean and build the writer utility
 cd "$FINDER_APP_DIR"
