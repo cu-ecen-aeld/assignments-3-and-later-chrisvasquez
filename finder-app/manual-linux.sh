@@ -37,9 +37,9 @@ if [ ! -e ${OUTDIR}/linux-stable/arch/${ARCH}/boot/Image ]; then
     # TODO: Add your kernel build steps here
     make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} mrproper
     make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} defconfig
-    make -j12 ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} all
-    make -j12 ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} modules
-    make -j12 ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} dtbs
+    make -j4 ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} all
+    make -j4 ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} modules
+    make -j4 ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} dtbs
 
 fi
 
@@ -75,8 +75,8 @@ fi
 # TODO: Make and install busybox
 make distclean
 make defconfig
-make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} 
-make CONFIG_PREFIX=${OUTDIR}/rootfs  ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} install
+make -j4 ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} 
+make -j4 CONFIG_PREFIX=${OUTDIR}/rootfs  ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} install
 
 cd "$OUTDIR"/rootfs
 # echo "Library dependencies"
