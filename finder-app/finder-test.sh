@@ -56,6 +56,7 @@ fi
 #make clean
 #make
 
+cd `dirname $0`
 for i in $( seq 1 $NUMFILES)
 do
 	./writer "$WRITEDIR/${username}$i.txt" "$WRITESTR"
