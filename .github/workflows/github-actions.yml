@@ -5,6 +5,7 @@ on:
             - '*'
         branches:
             - '*'
+            - '!devel'
 jobs:
     unit-test:
         container: cuaesd/aesd-autotest:unit-test
