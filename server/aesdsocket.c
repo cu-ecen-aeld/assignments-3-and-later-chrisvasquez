@@ -283,7 +283,8 @@ int main(int argc, char *argv[]) {
                ssize_t nr;
                nr = write (fd, message, receivedSize);
                if (nr == -1) {
-               return -1;
+                    free(message);
+                    return -1;
                }
                free(message);
                for (int i = 0; i < receivedSize; i++) {
@@ -342,10 +343,11 @@ int main(int argc, char *argv[]) {
            */ 
           syslog(LOG_DEBUG, "Closed connection from %s", sAddr);
 
-          free(message);          
+          free(message);      
+          free(addr);   
+          free(sAddr); 
           close(fd);
           close(client_socket);
-
      }
 
      /**
