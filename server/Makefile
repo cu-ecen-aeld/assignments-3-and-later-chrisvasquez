@@ -15,7 +15,7 @@ ifeq (${CROSS_COMPILE}, aarch64-none-linux-gnu-)
 	CC = aarch64-none-linux-gnu-gcc
 endif
 
-all: clean aesdsocket
+all: aesdsocket
 
 writer:
 	${CC} aesdsocket.c -o aesdsocket
