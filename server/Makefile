@@ -10,17 +10,15 @@
 # cross compiler installed in step 1.
 
 CC = g++
-# CFLAGS = -Wall -Wextra -ggdb -O0 -Wunreachable-code --pedantic
-CFLAGS=
 
 ifeq (${CROSS_COMPILE}, aarch64-none-linux-gnu-)
 	CC = aarch64-none-linux-gnu-gcc
 endif
 
-all: aesdsocket
+all: clean aesdsocket
 
 writer:
-	${CC} ${CFLAGS} aesdsocket.c -o aesdsocket
+	${CC} aesdsocket.c -o aesdsocket
 
 clean:
 	rm -rf aesdsocket
